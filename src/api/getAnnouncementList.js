@@ -1,9 +1,9 @@
 import request from "./index";
-export function getAffairList(){
+export function getAnnouncementList(){
   return request({
-    url:'/affair/getAffairList',
+    url:'/announcement/getAnnouncementList',
     method: 'get',
   })
 }
 
-export default getAffairList();
+export default getAnnouncementList;

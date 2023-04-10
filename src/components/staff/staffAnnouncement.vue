@@ -1,6 +1,6 @@
 <template>
   <div>
-  
+
     <el-table
       ref="filterTable"
       :data="tableData"
@@ -16,9 +16,19 @@
       >
       </el-table-column>
       <el-table-column
-        prop="title"
+        prop="announcementTitle"
         label="标题"
-        >
+      >
+      </el-table-column>
+      <el-table-column
+        prop="announcementUser"
+        label="作者"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="announcementIntroduction"
+        label="简介"
+      >
       </el-table-column>
       <el-table-column
         prop="op"
@@ -28,16 +38,17 @@
            <el-button @click="handleDetail(scope.row)">查看详情</el-button>
         </template>
       </el-table-column>
-     
+
     </el-table>
-     <el-dialog :title="announcement.title" :visible.sync="dialogFormVisible">
-       <div>{{announcement.desc}}</div>
+     <el-dialog :title="announcement.announcementTitle" :visible.sync="dialogFormVisible">
+       <div>{{announcement.announcementContent}}</div>
     </el-dialog>
   </div>
 
 </template>
 
 <script>
+import getAnnouncementList from "../../api/getAnnouncementList";
 export default {
   data() {
     return {
@@ -47,7 +58,7 @@ export default {
         date: '2016-05-02',
         title: '公告1',
         desc:'公告详情111',
-        
+
       }, {
         date: '2016-05-04',
        title: '公告2',
@@ -67,7 +78,6 @@ export default {
     handleDetail(row){
       this.dialogFormVisible = true;
       this.announcement = row
-      
     },
     resetDateFilter() {
       this.$refs.filterTable.clearFilter('date');
@@ -85,6 +95,13 @@ export default {
       const property = column['property'];
       return row[property] === value;
     }
+  },
+  created() {
+      getAnnouncementList().then(resp=>{
+        this.tableData=resp.data.data;
+        this.announcement=resp.data.data;
+      })
+
   }
 }
 </script>

@@ -7,7 +7,7 @@
             placeholder="请输入姓名"
             v-model="info.name"
           ></el-input>
-       
+
       </el-form-item>
 
       <el-form-item>
@@ -17,12 +17,12 @@
       <el-button type="primary" @click="publish">工资发放</el-button>
    </div>
     <el-table :data="tableData" height="800" border style="width: 100%">
-      <el-table-column prop="time" label="发放时间" width="180">
+      <el-table-column prop="payTime" label="发放时间" width="180">
       </el-table-column>
-      <el-table-column prop="base" label="基础工资"> </el-table-column>
-      <el-table-column prop="overTime" label="加班补贴"> </el-table-column>
-      <el-table-column prop="leave" label="请假扣除"> </el-table-column>
-      <el-table-column prop="reality" label="实际工资"> </el-table-column>
+      <el-table-column prop="baseSalary" label="基础工资"> </el-table-column>
+      <el-table-column prop="overtimeSalary" label="加班补贴"> </el-table-column>
+      <el-table-column prop="deductSalary" label="请假扣除"> </el-table-column>
+      <el-table-column prop="grossSalary" label="实发工资"> </el-table-column>
     </el-table>
     <div class="Pagination">
       <el-pagination
@@ -58,6 +58,7 @@
 </template>
 <script>
 import submitLeave from "../../api/submitLeave";
+import getSalaryList from "../../api/getSalaryList";
 export default {
   data() {
     return {
@@ -107,8 +108,15 @@ export default {
         alert("提交成功！");
       });
     },
-    
+
   },
+  created() {
+    getSalaryList().then(resp=>{
+      this.tableData=resp.data.data;
+      // console.log(resp);
+    })
+
+  }
 };
 </script>
 

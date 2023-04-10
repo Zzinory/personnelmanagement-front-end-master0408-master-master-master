@@ -2,7 +2,7 @@
   <div>
     <el-table ref="filterTable" :data="tableData" style="width: 100%">
       <el-table-column
-        prop="date"
+        prop="fileUploadTime"
         label="日期"
         sortable
         width="180"
@@ -16,7 +16,7 @@
         :filter-method="filterHandler"
       >
       </el-table-column>
-      <el-table-column prop="title" label="标题"> </el-table-column>
+      <el-table-column prop="fileIntro" label="标题"> </el-table-column>
       <el-table-column prop="op" label="查看文件" width="180">
         <template slot-scope="scope">
           <el-button @click="handleDetail(scope.row)">预览文件</el-button>
@@ -44,7 +44,7 @@
 
 <script>
 import getDownloadFile from "../../api/getDownloadFile";
-
+import getFileList from "../../api/getFileList";
 export default {
 
   data() {
@@ -52,9 +52,8 @@ export default {
       previewShow: false,
       previewUrl: "",
       tableData: [{
-        date: '2016-05-02',
-        title: '公告1',
-        desc:'公告详情111',
+        fileUploadTime: '2016-05-02',
+        fileIntro:'公告详情111',
         fileName:"16d53f9a99c84ea583e595d3b66c9fce.pdf"
 
       }, {
@@ -108,6 +107,11 @@ export default {
       const property = column['property'];
       return row[property] === value;
     }
+  },
+  created() {
+    getFileList().then(resp=>{
+      this.tableData=resp.data.data;
+    })
   }
 }
 </script>

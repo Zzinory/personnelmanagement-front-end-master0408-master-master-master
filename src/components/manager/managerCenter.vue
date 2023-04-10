@@ -60,7 +60,13 @@
           <el-input v-model="form.position" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="入职日期">
-          <el-input v-model="form.entryDate"></el-input>
+          <el-input v-model="form.entryDate" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="爱好">
+          <el-input v-model="form.hobby"></el-input>
+        </el-form-item>
+        <el-form-item label="生日">
+          <el-input v-model="form.birthday"></el-input>
         </el-form-item>
 
         <el-form-item>
@@ -94,6 +100,8 @@ export default {
         { renderKey: "密码", renderName: "password" },
         { renderKey: "职位", renderName: "position" },
         { renderKey: "入职日期", renderName: "entryDate" },
+        { renderKey: "爱好", renderName: "hobby" },
+        { renderKey: "生日", renderName: "birthday" },
       ],
     };
   },
